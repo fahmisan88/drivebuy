@@ -21,6 +21,7 @@ gem 'devise', '~> 4.2'
 # Bootstrap assets
 gem 'bootstrap-sass', '~> 3.3.6'
 gem 'sass-rails', '~> 5.0'
+gem 'jquery-rails'
 
 # For beautiful flash messages
 gem 'toastr-rails', '~> 1.0'
