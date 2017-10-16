@@ -1,5 +1,18 @@
 Rails.application.routes.draw do
   root 'pages#home'
   devise_for :users
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+
+  namespace :admin do
+    resources :dashboards, only: :index
+  end
+
+  namespace :api do
+    namespace :v1 do
+      post '/login' => 'sessions#login'
+      delete '/logout' => 'sessions#logout'
+
+      resources :restaurants
+    end
+  end
+
 end
