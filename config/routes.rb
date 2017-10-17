@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   root 'pages#home'
-  devise_for :users
+  devise_for :users, controllers: {
+    registrations: 'registrations',
+  }
 
   namespace :admin do
     resources :dashboards, only: :index
@@ -14,5 +16,8 @@ Rails.application.routes.draw do
       resources :restaurants
     end
   end
+
+  resources :restaurants, only: [:edit, :update]
+  resources :meals
 
 end

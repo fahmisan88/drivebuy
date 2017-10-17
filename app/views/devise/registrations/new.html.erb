@@ -12,6 +12,24 @@
         <%= f.password_field :password, autocomplete: "off", placeholder: "Password", class: "form-control" %>
       </div>
 
+      <%= f.fields_for :restaurant do |r| %>
+      <div class="form-group">
+        <%= r.text_field :name, autofocus: true, placeholder: "Restaurant Name", class: "form-control", required: true %>
+      </div>
+
+      <div class="form-group">
+        <%= r.text_field :address, autofocus: true, placeholder: "Restaurant Address", class: "form-control", required: true %>
+      </div>
+
+      <div class="form-group">
+        <%= r.text_field :phone, autofocus: true, placeholder: "Restaurant Phone No", class: "form-control", required: true %>
+      </div>
+
+      <div class="form-group">
+        <%= r.select :prepare_time, ['10 minutes','15 minutes','20 minutes'], { :include_blank => '-- Select Preparation Time --' }, required: true, class: "form-control" %>
+      </div>
+      <% end %>
+
       <div class="actions">
         <%= f.submit "Sign up", class: "btn btn-normal btn-block" %>
       </div>

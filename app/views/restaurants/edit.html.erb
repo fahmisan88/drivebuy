@@ -1,0 +1,31 @@
+<div class="row">
+  <div class="col-md-4 col-md-offset-4">
+    <h2 class="text-center">Your Restaurant</h2>
+    <br>
+    <%= form_for @restaurant do |f| %>
+      <div class="form-group">
+        <label>Name</label>
+        <%= f.text_field :name, autofocus: true, placeholder: "Restaurant Name", class: "form-control", required: true %>
+      </div>
+
+      <div class="form-group">
+        <label>Address</label>
+        <%= f.text_field :address, autofocus: true, placeholder: "Restaurant Address", class: "form-control", required: true %>
+      </div>
+
+      <div class="form-group">
+        <label>Phone Number</label>
+        <%= f.text_field :phone, autofocus: true, placeholder: "Restaurant Phone No", class: "form-control", required: true %>
+      </div>
+
+      <div class="form-group">
+        <label>Preparation Time</label>
+        <%= f.select :prepare_time, ['10 minutes','15 minutes','20 minutes'], { :include_blank => '-- Select Preparation Time --' }, required: true, class: "form-control" %>
+      </div>
+
+      <div class="actions">
+        <%= f.submit "Update", class: "btn btn-normal btn-block" %>
+      </div>
+    <% end %>
+  </div>
+</div>

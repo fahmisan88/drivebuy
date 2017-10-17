@@ -9,14 +9,6 @@ class Admin::RestaurantsController < ApplicationController
 
   end
 
-  def new
-
-  end
-
-  def create
-
-  end
-
   def edit
 
   end
@@ -28,5 +20,5 @@ class Admin::RestaurantsController < ApplicationController
   def destroy
 
   end
-  
+
 end
