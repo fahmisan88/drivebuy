@@ -18,6 +18,11 @@ Rails.application.routes.draw do
   end
 
   resources :restaurants, only: [:edit, :update]
-  resources :meals
+  resources :meals do
+    member do
+      post :enable
+      post :disable
+    end
+  end
 
 end

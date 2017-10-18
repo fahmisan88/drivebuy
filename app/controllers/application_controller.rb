@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
     if resource.admin
       root_path
     else
-      edit_restaurant_path(resource)
+      meals_path
     end
   end
 
