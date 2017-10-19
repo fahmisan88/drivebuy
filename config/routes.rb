@@ -12,7 +12,8 @@ Rails.application.routes.draw do
     namespace :v1 do
       post '/login' => 'sessions#login'
       delete '/logout' => 'sessions#logout'
-
+      post '/register' => 'registrations#create'
+      post '/update_profile' => 'customers#update'
       resources :restaurants
     end
   end
