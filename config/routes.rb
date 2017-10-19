@@ -14,7 +14,7 @@ Rails.application.routes.draw do
       delete '/logout' => 'sessions#logout'
       post '/register' => 'registrations#create'
       post '/update_profile' => 'customers#update'
-      resources :restaurants
+      resources :restaurants, only: [:index, :show]
     end
   end
 
