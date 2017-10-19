@@ -15,6 +15,7 @@ Rails.application.routes.draw do
       post '/register' => 'registrations#create'
       post '/update_profile' => 'customers#update'
       resources :restaurants, only: [:index, :show]
+      resources :orders, only: :create
     end
   end
 

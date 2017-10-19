@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171018101017) do
+ActiveRecord::Schema.define(version: 20171019082424) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,6 +37,29 @@ ActiveRecord::Schema.define(version: 20171018101017) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["restaurant_id"], name: "index_meals_on_restaurant_id"
+  end
+
+  create_table "order_details", force: :cascade do |t|
+    t.bigint "order_id"
+    t.bigint "meal_id"
+    t.integer "quantity"
+    t.decimal "sub_total"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["meal_id"], name: "index_order_details_on_meal_id"
+    t.index ["order_id"], name: "index_order_details_on_order_id"
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.bigint "restaurant_id"
+    t.bigint "customer_id"
+    t.decimal "total"
+    t.integer "status"
+    t.datetime "picked_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["customer_id"], name: "index_orders_on_customer_id"
+    t.index ["restaurant_id"], name: "index_orders_on_restaurant_id"
   end
 
   create_table "restaurants", force: :cascade do |t|
@@ -73,5 +96,9 @@ ActiveRecord::Schema.define(version: 20171018101017) do
 
   add_foreign_key "customers", "users"
   add_foreign_key "meals", "restaurants"
+  add_foreign_key "order_details", "meals"
+  add_foreign_key "order_details", "orders"
+  add_foreign_key "orders", "customers"
+  add_foreign_key "orders", "restaurants"
   add_foreign_key "restaurants", "users"
 end
