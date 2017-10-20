@@ -14,8 +14,20 @@ Rails.application.routes.draw do
       delete '/logout' => 'sessions#logout'
       post '/register' => 'registrations#create'
       post '/update_profile' => 'customers#update'
+      post '/update_location' => 'customers#update_location'
+      post '/customer_orders' => 'orders#list_customer_orders'
       resources :restaurants, only: [:index, :show]
-      resources :orders, only: :create
+      resources :orders, only: :create do
+        member do
+          post :approve
+          post :decline
+          post :ready
+          post :on_the_way
+          post :arrive
+          post :deliver
+          post :customer_order
+        end
+      end
     end
   end
 

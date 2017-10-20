@@ -13,7 +13,8 @@ class Api::V1::RestaurantsController < Api::V1::BaseController
   def show
     restaurant = Restaurant.find_by(id: params[:id])
     if restaurant
-      render json: restaurant, status: :ok
+      restaurant_meals = restaurant.meals.where(available: true)
+      render json: {meals: restaurant_meals, is_success: true}, status: :ok
     else
       render json: {error: "Restaurant not found", is_success: false}
     end
