@@ -61,6 +61,12 @@ class Api::V1::OrdersController < Api::V1::BaseController
     render json: {is_success: true}, status: :ok
   end
 
+  def cancel
+    order = current_user.customer.orders.find(params[:id])
+    order.update(status: 7)
+    render json: {is_success: true}, status: :ok
+  end
+
 
 #----------------------Restaurant Actions----------------------#
   def approve

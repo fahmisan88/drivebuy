@@ -3,5 +3,5 @@ class Order < ApplicationRecord
   belongs_to :customer
   has_many :order_details
 
-  enum status: [:Awaiting, :Preparing, :Decline, :Ready, :"On The Way", :Arrived, :Picked]
+  enum status: [:Awaiting, :Preparing, :Decline, :Ready, :"On The Way", :Arrived, :Picked. :Cancel]
 end

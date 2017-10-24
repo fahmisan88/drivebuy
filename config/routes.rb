@@ -1,8 +1,9 @@
 Rails.application.routes.draw do
   root 'pages#home'
-  devise_for :users, controllers: {
-    registrations: 'registrations',
-  }
+  devise_for :users,
+              path: '',
+              path_names: {sign_in: 'login', sign_out: 'logout', edit: 'account', sign_up: 'registration'},
+              controllers: { registrations: 'registrations',}
 
   namespace :admin do
     resources :dashboards, only: :index
@@ -26,6 +27,7 @@ Rails.application.routes.draw do
           post :arrive
           post :deliver
           post :customer_order
+          post :cancel
         end
       end
     end
