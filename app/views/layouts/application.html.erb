@@ -16,5 +16,6 @@
     <div class="container banner">
       <%= yield %>
     </div>
+    <%= render 'shared/footer' if current_page?(root_path)%>
   </body>
 </html>
