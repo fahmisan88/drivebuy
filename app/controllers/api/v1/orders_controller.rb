@@ -9,7 +9,7 @@ class Api::V1::OrdersController < Api::V1::BaseController
     order_details = JSON.parse(params[:order_details].to_json)
     order_total = 0
 
-    if customer.orders.last.status != "Picked"
+    if customer.orders.last && customer.orders.last.status != "Picked"
       render json: {error: "You have to pickup your last order first", is_success: false}
     elsif params[:plate_num].nil? || params[:plate_num].blank?
       render json: {error: "Your vehicle plate number is required", is_success: false}
