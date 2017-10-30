@@ -8,6 +8,7 @@ class User < ApplicationRecord
   has_one :restaurant, dependent: :destroy
   has_one :customer, dependent: :destroy
   accepts_nested_attributes_for :restaurant
+  accepts_nested_attributes_for :customer
 
   def generate_authentication_token
    begin
