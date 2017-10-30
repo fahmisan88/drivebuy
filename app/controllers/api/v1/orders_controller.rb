@@ -67,6 +67,12 @@ class Api::V1::OrdersController < Api::V1::BaseController
     render json: {is_success: true}, status: :ok
   end
 
+  # POST for customer current order
+  def current_order
+    order = current_user.customer.orders.last
+    render json: order.as_json(include: [{order_details: {include: :meal}}]), status: :ok
+  end
+
 
 #----------------------Restaurant Actions----------------------#
   def approve

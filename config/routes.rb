@@ -17,6 +17,7 @@ Rails.application.routes.draw do
       post '/update_profile' => 'customers#update'
       post '/update_location' => 'customers#update_location'
       post '/customer_orders' => 'orders#list_customer_orders'
+      post '/current_order' => 'orders#current_order'
       resources :restaurants, only: [:index, :show]
       resources :orders, only: :create do
         member do
