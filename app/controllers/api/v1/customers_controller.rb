@@ -12,8 +12,19 @@ class Api::V1::CustomersController < Api::V1::BaseController
 
   def update_location
     customer = current_user.customer
+    order = customer.orders.where(status: 4).last
     customer.update(location_params)
-    render json: {is_success: true}, status: :ok
+    if order
+      distance = Geocoder::Calculations.distance_between([customer.lat,customer.long], [order.restaurant.latitude,order.restaurant.longitude])
+      if distance <= 0.05
+        order.update(status: 5)
+        render json: {arrive: true}, status: :ok
+      else
+        render json: {arrive: false}, status: :ok
+      end
+    else
+      render json: {error: "You either arrived or have no pending order..", is_success: false}
+    end
   end
 
   private

@@ -99,18 +99,18 @@ class Api::V1::OrdersController < Api::V1::BaseController
     render json: {is_success: true}, status: :ok
   end
 
-  # POST every 3 seconds to get and update orders status
+  # Need to listen for changes in status
   def list_customer_orders
-    orders = current_user.restaurant.orders.where.not("status = ? OR status = ?", 2, 6)
+    orders = current_user.restaurant.orders.where.not("status = ? OR status = ? OR status = ?", 2, 6, 7)
 
-    orders.where(status: 4).each do |order|
-      if order.customer.lat? && order.customer.long?
-        distance = Geocoder::Calculations.distance_between([order.customer.lat,order.customer.long], [order.restaurant.latitude,order.restaurant.longitude])
-        if distance <= 0.05
-          order.update(status: 5)
-        end
-      end
-    end
+    # orders.where(status: 4).each do |order|
+    #   if order.customer.lat? && order.customer.long?
+    #     distance = Geocoder::Calculations.distance_between([order.customer.lat,order.customer.long], [order.restaurant.latitude,order.restaurant.longitude])
+    #     if distance <= 0.05
+    #       order.update(status: 5)
+    #     end
+    #   end
+    # end
 
     if orders.where(status: 5).length > 0 || orders.where(status: 0).length > 0
       render json: {orders: orders.as_json(include: :customer), notify: true}, status: :ok
