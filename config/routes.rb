@@ -29,6 +29,7 @@ Rails.application.routes.draw do
           post :deliver
           post :customer_order
           post :cancel
+          post :is_ready
         end
       end
     end

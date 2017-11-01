@@ -73,6 +73,16 @@ class Api::V1::OrdersController < Api::V1::BaseController
     render json: order.as_json(include: [{order_details: {include: :meal}}]), status: :ok
   end
 
+  # Listen for order status to be ready
+  def is_ready
+    order = current_user.customer.orders.find(params[:id])
+    if order.status == "Ready"
+      render json: {is_ready: true}
+    else
+      render json: {is_ready: false}
+    end
+  end
+
 
 #----------------------Restaurant Actions----------------------#
   def approve
