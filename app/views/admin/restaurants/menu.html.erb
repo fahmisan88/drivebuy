@@ -1,0 +1,60 @@
+<div class="row">
+  <div class="col-md-6">
+    <%= form_tag(menu_admin_restaurant_path(@restaurant), method: "get", id: "search-form") do %>
+    <div class="col-md-6"><%= text_field_tag :search, params[:search], placeholder: "Search Meal", class: "form-control text" %></div>
+    <div class="col-md-3"><%= submit_tag "Search", :name => nil, class:"btn btn-success btn-form"%></div>
+    <%end%>
+    <span class="col-md-3"><%= link_to "View All", menu_admin_restaurant_path(@restaurant), class: "btn btn-success btn-info" %></span>
+  </div>
+  <div class="col-md-6">
+    <div class="pull-right">
+      <%= render partial: "admin/meals/form" %>
+    </div>
+  </div>
+</div>
+<br>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        Meals
+        <br>
+      </div>
+      <div class="panel-body">
+        <div>
+          <div style="overflow-x:auto;">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Name</th>
+                  <th>Description</th>
+                  <th>Price</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <%@meals.each_with_index do |meal, index|%>
+                <tr>
+                  <td><%= index + 1 %></td>
+                  <td><%= link_to meal.name, admin_meal_path(meal) %></td>
+                  <td><%= meal.desc %></td>
+                  <td><%= meal.price %></td>
+                  <td>
+                    <% if meal.available? %>
+                      Available
+                    <% else %>
+                      Unavailable
+                    <% end %>
+                  </td>
+                </tr>
+                <%end%>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

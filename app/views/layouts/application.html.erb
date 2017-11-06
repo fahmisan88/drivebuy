@@ -11,7 +11,11 @@
   </head>
 
   <body>
-    <%= render 'shared/navbar' %>
+    <% if current_user && current_user.admin? %>
+      <%= render 'shared/admin_navbar' %>
+    <% else %>
+      <%= render 'shared/navbar' %>
+    <% end %>
     <%= render 'shared/message' %>
     <div class="container banner">
       <%= yield %>

@@ -7,6 +7,12 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :dashboards, only: :index
+    resources :restaurants, except: [:new, :create, :edit] do
+      member do
+        get :menu
+      end
+    end
+    resources :meals, except: [:index, :edit, :new]
   end
 
   namespace :api do

@@ -1,0 +1,50 @@
+<div class="row">
+  <div class="col-md-6">
+    <%= form_tag(admin_restaurants_path, method: "get", id: "search-form") do %>
+    <div class="col-md-6"><%= text_field_tag :search, params[:search], placeholder: "Search Restaurant", class: "form-control text" %></div>
+    <div class="col-md-3"><%= submit_tag "Search", :name => nil, class:"btn btn-success btn-form"%></div>
+    <%end%>
+    <span class="col-md-3"><%= link_to "View All", admin_restaurants_path, class: "btn btn-success btn-info" %></span>
+  </div>
+  <div class="col-md-6"></div>
+</div>
+<br>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        Restaurants
+        <br>
+      </div>
+      <div class="panel-body">
+        <div>
+          <div style="overflow-x:auto;">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Name</th>
+                  <th>Address</th>
+                  <th>Phone</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <%@restaurants.each_with_index do |restaurant, index|%>
+                <tr>
+                  <td><%= index + 1 %></td>
+                  <td><%= link_to restaurant.name, admin_restaurant_path(restaurant) %></td>
+                  <td><%= restaurant.address %></td>
+                  <td><%= restaurant.phone %></td>
+                  <td>Open</td>
+                </tr>
+                <%end%>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
