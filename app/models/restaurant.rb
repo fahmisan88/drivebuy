@@ -10,4 +10,6 @@ class Restaurant < ApplicationRecord
     where('name ILIKE :search', search: "%#{search}%")
   end
 
+  enum status: [:Active, :Inactive]
+
 end

@@ -12,6 +12,11 @@ Rails.application.routes.draw do
         get :menu
       end
     end
+    resources :customers, except: [:new, :create, :edit] do
+      member do
+        get :orders
+      end
+    end
     resources :meals, except: [:index, :edit, :new]
   end
 

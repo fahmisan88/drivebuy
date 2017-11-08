@@ -23,10 +23,12 @@ class Admin::RestaurantsController < ApplicationController
   end
 
   def menu
-    @meals = @restaurant.meals
+    @foods = @restaurant.meals.where(meal_type: 0)
+    @drinks = @restaurant.meals.where(meal_type: 1)
     @meal = Meal.new
     if params[:search]
-      @meals = Meal.search(params[:search]).order("created_at DESC")
+      @foods = @restaurant.meals.where(meal_type: 0).search(params[:search]).order("created_at DESC")
+      @drinks = @restaurant.meals.where(meal_type: 1).search(params[:search]).order("created_at DESC")
     end
   end
 
@@ -37,7 +39,7 @@ class Admin::RestaurantsController < ApplicationController
   private
 
   def restaurant_params
-    params.require(:restaurant).permit(:name, :address, :phone, :latitude, :longitude, :prepare_time)
+    params.require(:restaurant).permit(:name, :address, :phone, :latitude, :longitude, :prepare_time, :status)
   end
 
   def set_restaurant

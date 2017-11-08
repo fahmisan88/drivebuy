@@ -26,6 +26,11 @@
         </div>
 
         <div class="form-group">
+          <label>Type</label>
+          <%= f.select :meal_type, ["Food", "Drink"], prompt: "Select...", class: "form-control "%>
+        </div>
+
+        <div class="form-group">
           <label>Price</label>
           <%= f.text_field :price, autofocus: true, placeholder: "Meal Price", class: "form-control", required: true %>
         </div>

@@ -5,4 +5,6 @@ class Meal < ApplicationRecord
   def self.search(search)
     where('name ILIKE :search', search: "%#{search}%")
   end
+
+  enum meal_type: [:Food, :Drink]
 end

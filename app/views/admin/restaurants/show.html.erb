@@ -34,6 +34,12 @@
                   <%= f.select :prepare_time, ['10 minutes','15 minutes','20 minutes'], required: true, class: "form-control" %>
                 </div>
               </div>
+              <div class="form-group pull-in clearfix">
+                <div class="col-md-4">
+                  <label>Status</label>
+                  <%= f.select :status, ['Active','Inactive'], required: true, class: "form-control" %>
+                </div>
+              </div>
             </div>
             <hr>
             <h4>Pickup Location</h4>

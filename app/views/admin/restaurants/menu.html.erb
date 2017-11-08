@@ -18,7 +18,7 @@
   <div class="col-md-12">
     <div class="panel panel-default">
       <div class="panel-heading">
-        Meals
+        Foods
         <br>
       </div>
       <div class="panel-body">
@@ -35,14 +35,59 @@
                 </tr>
               </thead>
               <tbody>
-                <%@meals.each_with_index do |meal, index|%>
+                <%@foods.each_with_index do |food, index|%>
                 <tr>
                   <td><%= index + 1 %></td>
-                  <td><%= link_to meal.name, admin_meal_path(meal) %></td>
-                  <td><%= meal.desc %></td>
-                  <td><%= meal.price %></td>
+                  <td><%= link_to food.name, admin_meal_path(food) %></td>
+                  <td><%= food.desc %></td>
+                  <td><%= food.price %></td>
                   <td>
-                    <% if meal.available? %>
+                    <% if food.available? %>
+                      Available
+                    <% else %>
+                      Unavailable
+                    <% end %>
+                  </td>
+                </tr>
+                <%end%>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        Drinks
+        <br>
+      </div>
+      <div class="panel-body">
+        <div>
+          <div style="overflow-x:auto;">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Name</th>
+                  <th>Description</th>
+                  <th>Price</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <%@drinks.each_with_index do |drink, index|%>
+                <tr>
+                  <td><%= index + 1 %></td>
+                  <td><%= link_to drink.name, admin_meal_path(drink) %></td>
+                  <td><%= drink.desc %></td>
+                  <td><%= drink.price %></td>
+                  <td>
+                    <% if drink.available? %>
                       Available
                     <% else %>
                       Unavailable

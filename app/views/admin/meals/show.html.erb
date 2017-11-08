@@ -1,0 +1,56 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        Manage Meal
+      </div>
+      <div class="panel-body" style="padding-left:80px;padding-right:80px;">
+        <%= form_for(@meal , url: admin_meal_path(@meal), method: :patch) do |f| %>
+        <div class="row">
+          <div class="col-md-12">
+            <h4>Meal Details</h4>
+            <div class="row">
+              <div class="form-group pull-in clearfix">
+                <div class="col-md-4">
+                  <label>Name</label>
+                  <%= f.text_field :name, class: 'form-control', placeholder:"Meal name", type:"text", required: true %>
+                </div>
+                <div class="col-md-4">
+                  <label>Phone</label>
+                  <%= f.text_field :price, class: 'form-control', placeholder:"Meal price", type:"text", required: true %>
+                </div>
+                <div class="col-md-4">
+                  <label>Type</label>
+                  <%= f.select :meal_type, ['Food','Drink'], required: true, class: "form-control" %>
+                </div>
+              </div>
+            </div>
+            <hr>
+            <h4>Meal Description</h4>
+            <div class="row">
+              <div class="form-group pull-in clearfix">
+                <div class="col-md-12">
+                  <label>Description</label>
+                  <%= f.text_field :desc, class: 'form-control', placeholder:"Meal Description", type:"text", required: true %>
+                </div>
+              </div>
+              <div class="form-group pull-in clearfix">
+                <div class="col-md-4">
+                  <label>Available</label>
+                  <%= f.select :available, [['Yes', true],['No', false]], required: true, class: "form-control" %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12">
+            <%= f.submit "Update", class: "btn btn-normal btn-form"%>
+          </div>
+        </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
