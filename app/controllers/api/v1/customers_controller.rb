@@ -10,14 +10,17 @@ class Api::V1::CustomersController < Api::V1::BaseController
     end
   end
 
+  # POST: customer update locations while on the way to pickup order
   def update_location
     customer = current_user.customer
-    order = customer.orders.where(status: 4).last
+    order = customer.orders.where(status: 5).last
     customer.update(location_params)
+    # Check if customer location is within 50 meters from pickup location then change status from on the way to arrive.
+    # Function to notify restaurant will built later
     if order
       distance = Geocoder::Calculations.distance_between([customer.lat,customer.long], [order.restaurant.latitude,order.restaurant.longitude])
       if distance <= 0.05
-        order.update(status: 5)
+        order.update(status: 6)
         render json: {arrive: true}, status: :ok
       else
         render json: {arrive: false}, status: :ok

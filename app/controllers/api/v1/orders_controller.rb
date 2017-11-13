@@ -2,15 +2,15 @@ class Api::V1::OrdersController < Api::V1::BaseController
   before_action :authenticate_with_token!
 
 #----------------------Customer Actions----------------------#
-  # POST request to add order containing access_token, restaurant_id, order_details {meal_id: ???, quantity: ???}, plate_num, car_desc
+  # POST: customer place order. Params containing access_token, restaurant_id, order_details {meal_id: ???, quantity: ???}, plate_num, car_desc
   def create
     restaurant = Restaurant.find(params[:restaurant_id])
     customer = current_user.customer
     order_details = JSON.parse(params[:order_details].to_json)
     order_total = 0
 
-    if customer.orders.last && customer.orders.last.status != "Picked"
-      render json: {error: "You have to pickup your last order first", is_success: false}
+    if customer.orders.last && customer.orders.last.status != "Picked" && customer.orders.last.status != "Declined" && customer.orders.last.status != "Cancelled"
+      render json: {error: "You have to complete your current order first", is_success: false}
     elsif params[:plate_num].nil? || params[:plate_num].blank?
       render json: {error: "Your vehicle plate number is required", is_success: false}
     elsif params[:car_desc].nil? || params[:car_desc].blank?
@@ -26,8 +26,7 @@ class Api::V1::OrdersController < Api::V1::BaseController
         order = Order.create(
                   customer_id: customer.id,
                   restaurant_id: restaurant.id,
-                  total: order_total,
-                  status: 0
+                  total: order_total
                   )
       end
 
@@ -48,32 +47,42 @@ class Api::V1::OrdersController < Api::V1::BaseController
     end
   end
 
+  # POST: customer notify they on the way to pickup order
   def on_the_way
     order = current_user.customer.orders.find(params[:id])
-    order.update(status: 4)
+    order.update(status: 5)
     order.customer.update(lat: params[:latitude], long: params[:longitude])
     render json: {is_success: true}, status: :ok
   end
 
+  # POST: customer manually notify when they arrive at pickup location. (for those phone without GPS)
   def arrive
     order = current_user.customer.orders.find(params[:id])
-    order.update(status: 5)
+    order.update(status: 6)
     render json: {is_success: true}, status: :ok
   end
 
+  # POST: customer cancel their order
   def cancel
     order = current_user.customer.orders.find(params[:id])
-    order.update(status: 7)
+    order.update(status: 9)
+    render json: {is_success: true}, status: :ok
+  end
+
+  # POST: customer notify they have pick up their order
+  def pick
+    order = current_user.customer.orders.find(params[:id])
+    order.update(status: 8)
     render json: {is_success: true}, status: :ok
   end
 
   # POST for customer current order
   def current_order
     order = current_user.customer.orders.last
-    render json: order.as_json(include: [{order_details: {include: :meal}}]), status: :ok
+    render json: order.as_json(include: [:restaurant, {order_details: {include: :meal}}]), status: :ok
   end
 
-  # Listen for order status to be ready
+  # Listen for order status to be ready. Polling every 3 seconds
   def is_ready
     order = current_user.customer.orders.find(params[:id])
     if order.status == "Ready"
@@ -85,51 +94,47 @@ class Api::V1::OrdersController < Api::V1::BaseController
 
 
 #----------------------Restaurant Actions----------------------#
+
+  # POST: restaurant accept the requested order
   def approve
     order = current_user.restaurant.orders.find(params[:id])
     order.update(status: 1)
     render json: {is_success: true}, status: :ok
   end
 
+  # POST: restaurant decline the requested order
   def decline
     order = current_user.restaurant.orders.find(params[:id])
     order.update(status: 2)
     render json: {is_success: true}, status: :ok
   end
 
+  # POST: restaurant notify that order is ready for pick up
   def ready
     order = current_user.restaurant.orders.find(params[:id])
-    order.update(status: 3)
+    order.update(status: 4)
     render json: {is_success: true}, status: :ok
   end
 
+  # POST: restaurant notify they have deliver order to customer car
   def deliver
     order = current_user.restaurant.orders.find(params[:id])
-    order.update(status: 6)
+    order.update(status: 7)
     render json: {is_success: true}, status: :ok
   end
 
-  # Need to listen for changes in status
+  # POST: Restaurant current order page Need to listen for changes in status, Polling every 3 seconds
   def list_customer_orders
-    orders = current_user.restaurant.orders.where.not("status = ? OR status = ? OR status = ?", 2, 6, 7)
+    orders = current_user.restaurant.orders.where.not("status = ? OR status = ? OR status = ? OR status = ?", 2, 7, 8, 9)
 
-    # orders.where(status: 4).each do |order|
-    #   if order.customer.lat? && order.customer.long?
-    #     distance = Geocoder::Calculations.distance_between([order.customer.lat,order.customer.long], [order.restaurant.latitude,order.restaurant.longitude])
-    #     if distance <= 0.05
-    #       order.update(status: 5)
-    #     end
-    #   end
-    # end
-
-    if orders.where(status: 5).length > 0 || orders.where(status: 0).length > 0
+    if orders.where(status: 6).length > 0 || orders.where(status: 0).length > 0
       render json: {orders: orders.as_json(include: :customer), notify: true}, status: :ok
     else
       render json: {orders: orders.as_json(include: :customer), notify: false}, status: :ok
     end
   end
 
-  # POST for one customer order
+  # POST: Restaurant view one customer order
   def customer_order
     order = current_user.restaurant.orders.find(params[:id])
     render json: order.as_json(include: [:customer, {order_details: {include: :meal}}]), status: :ok

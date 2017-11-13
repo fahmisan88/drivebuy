@@ -23,7 +23,7 @@ class Admin::CustomersController < ApplicationController
   end
 
   def orders
-    @orders = @customer.orders.where(status: 6)
+    @orders = @customer.orders
   end
 
   def destroy

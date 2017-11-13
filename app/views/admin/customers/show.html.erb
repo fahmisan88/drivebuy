@@ -80,8 +80,8 @@
                     <tr>
                       <th>Last Order</th>
                       <td>
-                        <% if @customer.orders.where(status: 6).last %>
-                          <%= @customer.orders.where(status: 6).last.picked_at.strftime('%d %b %G') %>
+                        <% if @customer.orders.where(status: 8).last %>
+                          <%= @customer.orders.where(status: 8).last.picked_at.strftime('%d %b %G') %>
                         <% else %>
                           N/A
                         <% end %>
@@ -89,7 +89,7 @@
                     </tr>
                     <tr>
                       <th>Completed Orders</th>
-                      <td><%= @customer.orders.where(status: 6).count %></td>
+                      <td><%= @customer.orders.where(status: 8).count %></td>
                     </tr>
                   </tbody>
                 </table>
