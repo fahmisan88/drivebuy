@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171108120836) do
+ActiveRecord::Schema.define(version: 20171113175654) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,6 +38,7 @@ ActiveRecord::Schema.define(version: 20171108120836) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "meal_type"
+    t.string "code"
     t.index ["restaurant_id"], name: "index_meals_on_restaurant_id"
   end
 
@@ -65,6 +66,22 @@ ActiveRecord::Schema.define(version: 20171108120836) do
     t.string "order_id"
     t.index ["customer_id"], name: "index_orders_on_customer_id"
     t.index ["restaurant_id"], name: "index_orders_on_restaurant_id"
+  end
+
+  create_table "payments", force: :cascade do |t|
+    t.bigint "order_id"
+    t.bigint "restaurant_id"
+    t.bigint "customer_id"
+    t.string "method"
+    t.string "txid"
+    t.integer "status", default: 2
+    t.string "message"
+    t.decimal "amount"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["customer_id"], name: "index_payments_on_customer_id"
+    t.index ["order_id"], name: "index_payments_on_order_id"
+    t.index ["restaurant_id"], name: "index_payments_on_restaurant_id"
   end
 
   create_table "restaurants", force: :cascade do |t|
@@ -107,5 +124,8 @@ ActiveRecord::Schema.define(version: 20171108120836) do
   add_foreign_key "order_details", "orders"
   add_foreign_key "orders", "customers"
   add_foreign_key "orders", "restaurants"
+  add_foreign_key "payments", "customers"
+  add_foreign_key "payments", "orders"
+  add_foreign_key "payments", "restaurants"
   add_foreign_key "restaurants", "users"
 end

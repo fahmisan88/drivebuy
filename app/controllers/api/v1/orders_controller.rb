@@ -92,6 +92,35 @@ class Api::V1::OrdersController < Api::V1::BaseController
     end
   end
 
+  def pay
+    order = current_user.customer.orders.find(params[:id])
+    Payment.create!(order_id: order.id, customer_id: order.customer_id, restaurant_id: order.restaurant_id)
+
+    eghl =  Eghl.new "sit", "sit12345", order
+    eghl.write_request_parameter('MerchantCallBackURL', callback_api_v1_order_url(order))
+    eghl.write_request_parameter('CustIp', request.remote_ip)
+    eghl.generate_request_signature
+
+    render json: {eghl: eghl.request_parameters, is_success: true}, status: :ok
+  end
+
+  def callback
+    order = current_user.customer.orders.find(params[:id])
+    if order.id == params['PaymentID']
+      eghl = Eghl.new "sit", "sit12345", order
+      eghl.response_parameters = params.except(:id)
+      order.payment.update(status: params['TxnStatus'].to_i, txid: params['TxnID'], message: params['TxnMessage'], method: params['PymtMethod'], amount: params['Amount'].to_d)
+      if eghl.status == 'success'
+        order.update(status: 3, order_id: ["R#{order.restaurant_id}-", order.restaurant.payments.where(status: 0).count].join(''))
+        render json: {paid: true}, text: 'OK'
+      elsif eghl.status == 'cancelled'
+        render json: {paid: false, error: "You have cancelled the payment"}, text: 'OK'
+      else
+        render json: {paid: false, error: "Payment Failed or Invalid"}, text: 'OK'
+      end
+    end
+  end
+
 
 #----------------------Restaurant Actions----------------------#
 
