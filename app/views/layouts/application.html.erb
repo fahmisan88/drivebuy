@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Drivebuy</title>
+    <title>Drivebuy: Virtual Drive-thru for Local Restaurants</title>
     <%= favicon_link_tag 'favicon.ico' %>
     <%= csrf_meta_tags %>
 
@@ -20,6 +20,7 @@
     <div class="container banner">
       <%= yield %>
     </div>
-    <%= render 'shared/footer' if current_page?(root_path)%>
+    <!-- enable_footer function in application controller and only applied to pages_controller -->
+    <%= render 'shared/footer' if @enable_footer %>
   </body>
 </html>

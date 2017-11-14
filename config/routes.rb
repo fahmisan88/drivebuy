@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
   root 'pages#home'
+  get '/terms' => 'pages#terms'
+  get '/privacy' => 'pages#privacy'
+  get '/contact' => 'pages#contact'
+
   devise_for :users,
               path: '',
               path_names: {sign_in: 'login', sign_out: 'logout', edit: 'account', sign_up: 'registration'},

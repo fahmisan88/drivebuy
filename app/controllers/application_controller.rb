@@ -9,6 +9,10 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def enable_footer
+    @enable_footer = true
+  end
+
   protected
 
   def after_sign_in_path_for(resource_or_scope)
