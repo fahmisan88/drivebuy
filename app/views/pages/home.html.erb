@@ -1,30 +1,69 @@
-<div class="row">
-  <div class="col-md-12">
-    <h1 class="text-center">Hey there driving human.</h1>
-    <h1 class="text-center">Love to order food, but hate to park, wait and leave your car?</h1><br>
-    <h4 class="text-center">We made Drivebuy for you. Now you can order ahead and pickup your favourite food at the roadside.</h4>
-    <h4 class="text-center">Just like a drive-thru. But better.</h4>
-  </div>
-</div><br><br>
-<div class="row">
-    <div class="col-md-12">
-      <div class="text-center"><%= image_tag("iphone_mockup.png")  %></div>
-    </div>
-</div><br><br><br><br>
 <div class="row white-banner">
-  <h1 class="text-center">Always ready, exactly when you arrive.</h1><br>
-  <h4 class="text-center">No more hassle of parking, walking, waiting and leave your car.</h4>
-  <h4 class="text-center">Save precious time and energy drive-thru your favourite local foods!</h4><br><br>
-  <div class="col-md-12"><div class="text-center"><%= image_tag("roadside_pickup.png")  %></div></div>
-</div><br><br>
-<div class="row" id="early_access">
+  <div class="container">
+    <div class="col-md-6">
+      <div style="margin-top: 80px; margin-left:50px; margin-right:50px;">
+        <h1 class="text-center">Order Ahead</h1>
+        <h1 class="text-center">Pickup Roadside</h1><br>
+        <p class="text-green text-center">Drivebuy allows you to buy takeaways and pick it up roadside without leaving your car. Just like a drive-thru. Only better!</p><br>
+        <div class="text-center" style="color:grey;"><small>Coming soon on</small></div><br>
+        <div class="text-center">
+          <span><%= image_tag("app_store.png") %></span>
+          &nbsp;&nbsp;&nbsp;&nbsp;
+          <span><%= image_tag("play_store.png") %></span>
+        </div>
+      </div>
+      <div class="text-center" style="margin-top:50px;"><p>Are you a business owner? <%= link_to "Learn how Drivebuy helps your business.", root_path %></p></div>
+    </div>
+    <div class="col-md-6">
+      <div><%= image_tag("iphone_mockup.png") %></div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="container">
+    <div class="col-md-12 text-center" style="margin-top:30px;">
+      <h1> How It Works </h1>
+    </div>
+    <div class="col-md-12 text-center" style="margin-top: 50px; margin-bottom:100px">
+      <div class="col-md-4">
+        <h1>1</h1>
+        <br>
+        <p class="text-green">Select a Drivebuy restaurant & place an order on the app.</p>
+      </div>
+      <div class="col-md-4">
+        <h1>2</h1>
+        <br>
+        <p class="text-green">Start driving while restaurant prepares your order.</p>
+      </div>
+      <div class="col-md-4">
+        <h1>3</h1>
+        <br>
+        <p class="text-green">Pickup order at the roadside without leaving the car.</p><small>(Yes. Restaurant know when you're coming.)</small>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="background_banner">
+    <div class="col-md-12 text-center" style="margin-top: 40px;color: black;">
+      <h1>Always ready, exactly when you arrive.</h1>
+      <h4 class="text-center">Save precious time and energy "drive-thru" your favourite local foods!</h4>
+    </div>
+  </div>
+</div>
+
+
+<div class="row" id="early_access" style="margin-top: 30px;">
   <div class="col-md-12">
     <h1 class="text-center">But you caught us before we ready.</h1><br>
     <h4 class="text-center">We are working hard building Drivebuy app that can grant you the power to drive-thru anywhere anything you want.</h4>
     <h4 class="text-center">If you like us to send a reminder when we're ready, just put your email below.</h4>
   </div>
-</div><br><br>
-<div class="row">
+</div>
+
+<div class="row" style="margin-top: 30px; margin-bottom: 50px;">
   <div class="col-md-12">
     <form action="https://herokuapp.us17.list-manage.com/subscribe/post?u=fa34f83a17b02fc85ac87902a&amp;id=2de928b9e5" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
       <div class="col-md-6 col-md-offset-3">
@@ -32,7 +71,6 @@
           <input type="email" name="EMAIL" class="form-control" placeholder="Enter your email" required="true" data-validation-required-message="Please enter your email address">
         </div>
       </div>
-
       <div class="col-md-12 text-center">
         <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_fa34f83a17b02fc85ac87902a_2de928b9e5" tabindex="-1" value=""></div>
         <button type="submit" class="btn btn-normal btn-success">Remind Me</button>

@@ -26,9 +26,25 @@ a {
   color: #12E3CE;
 }
 
+.text-green {
+  color: #00A699;
+  font-size: 1.5em;
+}
+
+.background_banner {
+    background-image: asset-url("drivebuy_banner.jpeg");
+    height: 548px;
+    width: 100%;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+}
+
 //Navbar
 .navbar-default {
   background-color: #FFFFFF;
+  border: 0px;
 }
 
 .navbar-default .navbar-brand {
