@@ -19,7 +19,7 @@
 
     <%= render 'shared/message' %>
 
-    <% if current_page?(root_path) %>
+    <% if current_page?(root_path) || current_page?(business_path) %>
       <div>
         <%= yield %>
       </div>

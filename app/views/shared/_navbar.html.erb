@@ -15,7 +15,7 @@
 
         <ul class="nav navbar-nav navbar-right">
           <% if !user_signed_in? %>
-          <li><%= link_to "For Business", root_path %></li>
+          <li><%= link_to "For Business", business_path %></li>
           <li><%= link_to "Log In", new_user_session_path %></li>
           <li><a href="#early_access" class="btn btn-success btn-normal" style= "color: white; background-color: #12E3CE;">GET EARLY ACCESS</a></li>
           <!-- <li><%= link_to "Sign up", new_user_registration_path %></li> -->
