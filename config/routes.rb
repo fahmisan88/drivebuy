@@ -48,6 +48,7 @@ Rails.application.routes.draw do
           post :is_ready
           post :callback
           post :pay
+          post :is_approve
         end
       end
     end
