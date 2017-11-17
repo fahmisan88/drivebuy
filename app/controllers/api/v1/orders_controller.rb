@@ -26,7 +26,8 @@ class Api::V1::OrdersController < Api::V1::BaseController
         order = Order.create(
                   customer_id: customer.id,
                   restaurant_id: restaurant.id,
-                  total: order_total
+                  total: order_total,
+                  status: 0
                   )
       end
 
