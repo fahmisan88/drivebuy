@@ -93,6 +93,18 @@ class Api::V1::OrdersController < Api::V1::BaseController
     end
   end
 
+  # Listen for order status to be approve or decline. Polling every 3 seconds
+  def is_approve
+    order = current_user.customer.orders.find(params[:id])
+    if order.status == "Approved"
+      render json: {is_approve: true}
+    elsif order.status == "Declined"
+      render json: {is_approve: false}
+    else
+      render json: {is_approve: nil}
+    end
+  end
+
   def pay
     order = current_user.customer.orders.find(params[:id])
     Payment.create!(order_id: order.id, customer_id: order.customer_id, restaurant_id: order.restaurant_id)
