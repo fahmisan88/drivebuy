@@ -5,7 +5,7 @@
         Manage Meal
       </div>
       <div class="panel-body" style="padding-left:80px;padding-right:80px;">
-        <%= form_for(@meal , url: admin_meal_path(@meal), method: :patch) do |f| %>
+        <%= form_for @meal do |f| %>
         <div class="row">
           <div class="col-md-12">
             <h4>Meal Details</h4>
@@ -50,8 +50,8 @@
         <br>
         <div class="row">
           <div class="col-md-12">
-            <span><%= link_to "Back", menu_admin_restaurant_path(@meal.restaurant_id), class: "btn btn-default"%></span>
-            <span><%= f.submit "Update", class: "btn btn-normal btn-form"%></span>
+          <span><%= link_to "Back", meals_path, class: "btn btn-default"%></span>
+          <span><%= f.submit "Update", class: "btn btn-normal btn-form"%></span>
           </div>
         </div>
         <% end %>

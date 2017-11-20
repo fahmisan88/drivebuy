@@ -1,11 +1,9 @@
 class MealsController < ApplicationController
-  before_action :set_meal, except: [:new, :create, :index]
+  before_action :set_meal, except: [:create, :index]
 
   def index
-    @meals = current_user.restaurant.meals
-  end
-
-  def new
+    @foods = current_user.restaurant.meals.where(meal_type: 0)
+    @drinks = current_user.restaurant.meals.where(meal_type: 1)
     @meal = Meal.new
   end
 
@@ -19,7 +17,7 @@ class MealsController < ApplicationController
     redirect_back(fallback_location: request.referer)
   end
 
-  def edit
+  def show
 
   end
 
@@ -29,12 +27,6 @@ class MealsController < ApplicationController
     else
       flash[:alert] = "Something went wrong..."
     end
-    redirect_back(fallback_location: request.referer)
-  end
-
-  def destroy
-    @meal.destroy
-    flash[:notice] = "Meal Removed..."
     redirect_to meals_path
   end
 
@@ -53,7 +45,7 @@ class MealsController < ApplicationController
   private
 
   def meal_params
-    params.require(:meal).permit(:name, :desc, :price, :meal_type, :available)
+    params.require(:meal).permit(:name, :desc, :price, :meal_type, :available, :code)
   end
 
   def set_meal

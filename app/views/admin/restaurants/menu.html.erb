@@ -28,6 +28,7 @@
               <thead>
                 <tr>
                   <th>#</th>
+                  <th>Code</th>
                   <th>Name</th>
                   <th>Description</th>
                   <th>Price</th>
@@ -38,8 +39,9 @@
                 <%@foods.each_with_index do |food, index|%>
                 <tr>
                   <td><%= index + 1 %></td>
+                  <td><%= !food.code.blank? ? food.code : "N/A" %></td>
                   <td><%= link_to food.name, admin_meal_path(food) %></td>
-                  <td><%= food.desc %></td>
+                  <td><%= !food.desc.blank? ? food.desc : "N/A" %></td>
                   <td><%= food.price %></td>
                   <td>
                     <% if food.available? %>
@@ -73,6 +75,7 @@
               <thead>
                 <tr>
                   <th>#</th>
+                  <th>Code</th>
                   <th>Name</th>
                   <th>Description</th>
                   <th>Price</th>
@@ -83,8 +86,9 @@
                 <%@drinks.each_with_index do |drink, index|%>
                 <tr>
                   <td><%= index + 1 %></td>
+                  <td><%= !drink.code.blank? ? drink.code : "N/A" %></td>
                   <td><%= link_to drink.name, admin_meal_path(drink) %></td>
-                  <td><%= drink.desc %></td>
+                  <td><%= !drink.desc.blank? ? drink.desc : "N/A" %></td>
                   <td><%= drink.price %></td>
                   <td>
                     <% if drink.available? %>

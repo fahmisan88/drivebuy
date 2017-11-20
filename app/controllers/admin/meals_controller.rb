@@ -25,15 +25,11 @@ class Admin::MealsController < ApplicationController
     end
     redirect_to menu_admin_restaurant_path(@restaurant)
   end
-
-  def destroy
-
-  end
-
+  
   private
 
   def meal_params
-    params.require(:meal).permit(:name, :desc, :price, :restaurant_id, :meal_type, :available)
+    params.require(:meal).permit(:name, :desc, :price, :restaurant_id, :meal_type, :available, :code)
   end
 
   def set_meal

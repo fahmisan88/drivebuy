@@ -1,5 +1,5 @@
 <!-- Trigger the modal with a button -->
-<button type="button" class="btn btn-normal" data-toggle="modal" data-target="#myModal">
+<button type="button" class="btn btn-normal btn-success" data-toggle="modal" data-target="#myModal">
   Add Meal
 </button>
 
@@ -14,7 +14,7 @@
         <h4 class="modal-title text-left">Add Meal</h4>
       </div>
       <div class="modal-body">
-        <%= form_for(@meal , url: admin_meals_path) do |f| %>
+        <%= form_for @meal do |f| %>
         <div class="form-group">
           <label>Name</label>
           <%= f.text_field :name, autofocus: true, placeholder: "Meal Name", class: "form-control", required: true %>
@@ -39,8 +39,6 @@
           <label>Price</label>
           <%= f.text_field :price, autofocus: true, placeholder: "Meal Price", class: "form-control", required: true %>
         </div>
-
-        <%= f.hidden_field :restaurant_id, value: @restaurant.id %>
 
         <div class="text-center">
           <%= f.submit "Submit", class: "btn btn-normal btn-block" %>

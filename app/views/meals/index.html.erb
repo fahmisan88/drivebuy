@@ -2,38 +2,101 @@
     <div class="col-md-6"></div>
     <div class="col-md-6">
       <div class="pull-right">
-        <%= link_to "Add Meal", new_meal_path, class: "btn btn-normal btn-success" %>
+        <%= render partial: "form" %>
       </div>
     </div>
 </div><br>
+
 
 <div class="row">
   <div class="col-md-12">
     <div class="panel panel-default">
       <div class="panel-heading">
-        Menu
+        Foods
+        <br>
       </div>
       <div class="panel-body">
-        <% @meals.each do |meal| %>
-          <div class="row">
-            <div class="col-md-8">
-              <h4><%= link_to meal.name, edit_meal_path(meal) %></h4>
-              <p><%= meal.desc %></p>
-            </div>
-            <div class="col-md-2">
-              <br>
-              RM<%= meal.price %>
-            </div>
-            <div class="col-md-2 right">
-              <% if meal.available %>
-                <%= link_to "Disable", disable_meal_path(meal), method: :post, class: "btn btn-info btn-small" %>
-              <% else %>
-                <%= link_to "Enable", enable_meal_path(meal), method: :post, class: "btn btn-info btn-small" %>
-              <% end %>
-            </div>
+        <div>
+          <div style="overflow-x:auto;">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Code</th>
+                  <th>Name</th>
+                  <th>Description</th>
+                  <th>Price</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <%@foods.each_with_index do |food, index|%>
+                <tr>
+                  <td><%= index + 1 %></td>
+                  <td><%= !food.code.blank? ? food.code : "N/A" %></td>
+                  <td><%= link_to food.name, meal_path(food) %></td>
+                  <td><%= !food.desc.blank? ? food.desc : "N/A" %></td>
+                  <td><%= food.price %></td>
+                  <td>
+                    <% if food.available %>
+                      <%= link_to "Disable", disable_meal_path(food), method: :post, class: "btn-link" %>
+                    <% else %>
+                      <%= link_to "Enable", enable_meal_path(food), method: :post, class: "btn-link" %>
+                    <% end %>
+                  </td>
+                </tr>
+                <%end%>
+              </tbody>
+            </table>
           </div>
-          <hr>
-        <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        Drinks
+        <br>
+      </div>
+      <div class="panel-body">
+        <div>
+          <div style="overflow-x:auto;">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Code</th>
+                  <th>Name</th>
+                  <th>Description</th>
+                  <th>Price</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <%@drinks.each_with_index do |drink, index|%>
+                <tr>
+                  <td><%= index + 1 %></td>
+                  <td><%= !drink.code.blank? ? drink.code : "N/A" %></td>
+                  <td><%= link_to drink.name, meal_path(drink) %></td>
+                  <td><%= !drink.desc.blank? ? drink.desc : "N/A" %></td>
+                  <td><%= drink.price %></td>
+                  <td>
+                    <% if drink.available %>
+                      <%= link_to "Disable", disable_meal_path(drink), method: :post, class: "btn-link" %>
+                    <% else %>
+                      <%= link_to "Enable", enable_meal_path(drink), method: :post, class: "btn-link" %>
+                    <% end %>
+                  </td>
+                </tr>
+                <%end%>
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
     </div>
   </div>
