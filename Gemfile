@@ -35,6 +35,9 @@ gem 'geocoder', '~> 1.4'
 # Rails Serializer
 gem 'active_model_serializers', '~> 0.10.0'
 
+# For generating charts
+gem 'chartkick', '~> 2.2.4'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

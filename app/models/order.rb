@@ -5,4 +5,11 @@ class Order < ApplicationRecord
   has_one :payment
 
   enum status: [:Awaiting, :Approved, :Declined, :Confirmed, :Ready, :"On The Way", :Arrived, :Delivered, :Picked, :Cancelled]
+
+  scope :current_week_revenue, -> (user) {
+    joins(:restaurant)
+    .where("orders.updated_at >= ? AND orders.status = ?", 1.week.ago, 7)
+    .order(updated_at: :asc)
+  }
+
 end

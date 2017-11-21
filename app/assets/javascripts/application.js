@@ -13,6 +13,8 @@
 //= require jquery
 //= require bootstrap-sprockets
 //= require toastr
+//= require Chart.bundle
+//= require chartkick
 //= require rails-ujs
 //= require turbolinks
 //= require_tree .

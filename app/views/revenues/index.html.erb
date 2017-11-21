@@ -1,0 +1,17 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-heading">This Week's Revenue</div>
+      <div class="panel-body">
+        <div class="container text-center">
+          <% if @orders.blank? %>
+            <h3>You don't have any orders yet</h3>
+          <% else %>
+            <%= column_chart @this_week_revenue, colors: ["#00A699"]%>
+          <% end %>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

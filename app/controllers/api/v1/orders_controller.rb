@@ -110,7 +110,8 @@ class Api::V1::OrdersController < Api::V1::BaseController
     Payment.create!(order_id: order.id, customer_id: order.customer_id, restaurant_id: order.restaurant_id)
 
     eghl =  Eghl.new "sit", "sit12345", order
-    eghl.write_request_parameter('MerchantCallBackURL', callback_api_v1_order_url(order))
+    eghl.write_request_parameter('MerchantReturnURL', return_order_url(order))
+    eghl.write_request_parameter('MerchantCallBackURL', callback_order_url(order))
     eghl.write_request_parameter('CustIp', request.remote_ip)
     eghl.generate_request_signature
 

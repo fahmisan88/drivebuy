@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   get '/privacy' => 'pages#privacy'
   get '/contact' => 'pages#contact'
   get '/business' => 'pages#business'
+  get '/payment_success' => 'orders#payment_success'
+  get '/payment_fail' => 'orders#payment_fail'
 
   devise_for :users,
               path: '',
@@ -59,6 +61,13 @@ Rails.application.routes.draw do
     member do
       post :enable
       post :disable
+    end
+  end
+  resources :revenues, only: :index
+  resources :orders, only: :nil do
+    member do
+      post :return
+      post :callback
     end
   end
 
