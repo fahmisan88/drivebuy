@@ -48,9 +48,9 @@ Rails.application.routes.draw do
           post :customer_order
           post :cancel
           post :is_ready
-          post :callback
-          post :pay
           post :is_approve
+          post :is_paid
+          post :pay
         end
       end
     end

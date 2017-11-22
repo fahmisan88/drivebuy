@@ -1,8 +1,8 @@
 class OrdersController < ApplicationController
 
   def return
-    order = current_user.customer.orders.find(params[:id])
-    if order.id == params['PaymentID']
+    order = Order.find_by(id: params[:id])
+    if order
       eghl = Eghl.new "sit", "sit12345", order
       eghl.response_parameters = params.except(:id)
       order.payment.update(status: params['TxnStatus'].to_i, txid: params['TxnID'], message: params['TxnMessage'], method: params['PymtMethod'], amount: params['Amount'].to_d)
@@ -16,8 +16,8 @@ class OrdersController < ApplicationController
   end
 
   def callback
-    order = current_user.customer.orders.find(params[:id])
-    if order.id == params['PaymentID']
+    order = Order.find_by(id: params[:id])
+    if order
       eghl = Eghl.new "sit", "sit12345", order
       eghl.response_parameters = params.except(:id)
       order.payment.update(status: params['TxnStatus'].to_i, txid: params['TxnID'], message: params['TxnMessage'], method: params['PymtMethod'], amount: params['Amount'].to_d)
