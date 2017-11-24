@@ -66,8 +66,11 @@ Rails.application.routes.draw do
   resources :revenues, only: :index
   resources :orders, only: :nil do
     member do
+      get :return
       post :return
+      get :callback
       post :callback
+      get :pay
     end
   end
 

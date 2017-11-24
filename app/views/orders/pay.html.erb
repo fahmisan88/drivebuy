@@ -1,0 +1,5 @@
+<form name="pay" method="POST" action="https://test2pay.ghl.com/IPGSG/Payment.aspx">
+<% @eghl.request_parameters.each do |key, value| %><input type="hidden" name="<%= key %>" value="<%= value %>"><% end %>
+</form>
+<script type="text/javascript">document.pay.submit()</script>
+<!-- the script above use to auto submit the form -->
