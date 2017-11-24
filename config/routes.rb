@@ -36,7 +36,14 @@ Rails.application.routes.draw do
       post '/update_location' => 'customers#update_location'
       post '/customer_orders' => 'orders#list_customer_orders'
       post '/current_order' => 'orders#current_order'
-      resources :restaurants, only: [:index, :show]
+      post '/completed_orders' => 'orders#completed_orders'
+      resources :restaurants, only: [:index, :show] do
+        member do
+          post :open
+          post :close
+          post :menu
+        end
+      end
       resources :orders, only: :create do
         member do
           post :approve
@@ -51,6 +58,12 @@ Rails.application.routes.draw do
           post :is_approve
           post :is_paid
           post :pay
+        end
+      end
+      resources :meals, only: :nil do
+        member do
+          post :enable
+          post :disable
         end
       end
     end

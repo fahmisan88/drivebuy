@@ -175,6 +175,12 @@ class Api::V1::OrdersController < Api::V1::BaseController
     render json: order.as_json(include: [:customer, {order_details: {include: :meal}}]), status: :ok
   end
 
+  #POST: Restaurant view todays completed orders
+  def completed_orders
+    orders = current_user.restaurant.orders.where("status = ? OR status = ? ", 7, 8)
+    render json: orders, status: :ok
+  end
+
   private
   def customer_params
     params.permit(:plate_num, :car_desc, :lat, :long)

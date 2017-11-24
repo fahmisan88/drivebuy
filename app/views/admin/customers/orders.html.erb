@@ -27,19 +27,17 @@
                   <th>Order ID</th>
                   <th>Restaurant</th>
                   <th>Total</th>
-                  <th>Method</th>
-                  <th>Picked At</th>
+                  <th>Status</th>
                 </tr>
               </thead>
               <tbody>
                 <%@orders.each_with_index do |order, index|%>
                 <tr>
                   <td><%= index + 1 %></td>
-                  <td>Belum Lagi</td>
+                  <td><%= order.order_id %></td>
                   <td><%= order.restaurant.name %></td>
                   <td><%= order.total %></td>
-                  <td><%= order.method %></td>
-                  <td><%= order.picked_at.strftime('%d %b %G') %></td>
+                  <td><%= order.status %></td>
                 </tr>
                 <%end%>
               </tbody>

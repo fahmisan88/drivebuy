@@ -81,7 +81,7 @@
                       <th>Last Order</th>
                       <td>
                         <% if @customer.orders.where(status: 8).last %>
-                          <%= @customer.orders.where(status: 8).last.picked_at.strftime('%d %b %G') %>
+                          <%= @customer.orders.where(status: 8).last.updated_at.strftime('%d %b %G') %>
                         <% else %>
                           N/A
                         <% end %>

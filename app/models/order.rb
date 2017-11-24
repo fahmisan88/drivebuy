@@ -12,4 +12,8 @@ class Order < ApplicationRecord
     .order(updated_at: :asc)
   }
 
+  def self.search(search)
+    where('order_id ILIKE :search', search: "%#{search}%")
+  end
+
 end

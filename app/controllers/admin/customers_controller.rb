@@ -24,6 +24,9 @@ class Admin::CustomersController < ApplicationController
 
   def orders
     @orders = @customer.orders
+    if params[:search]
+      @orders = Order.search(params[:search]).order("created_at DESC")
+    end
   end
 
   def destroy
