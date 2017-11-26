@@ -37,6 +37,7 @@ Rails.application.routes.draw do
       post '/customer_orders' => 'orders#list_customer_orders'
       post '/current_order' => 'orders#current_order'
       post '/completed_orders' => 'orders#completed_orders'
+      post '/current_status' => 'orders#current_status'
       resources :restaurants, only: [:index, :show] do
         member do
           post :open

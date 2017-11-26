@@ -83,6 +83,12 @@ class Api::V1::OrdersController < Api::V1::BaseController
     render json: order.as_json(include: [:restaurant, {order_details: {include: :meal}}]), status: :ok
   end
 
+  # POST for getting current status
+  def current_status
+    status = current_user.customer.orders.last.status
+    render json: {status: status}, status: :ok
+  end
+
   # Listen for order status to be ready. Polling every 3 seconds
   def is_ready
     order = current_user.customer.orders.find(params[:id])
