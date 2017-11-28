@@ -19,6 +19,15 @@ class Api::V1::SessionsController < Api::V1::BaseController
     render json: {is_success: true}, status: :ok
   end
 
+  def check
+    user = User.find_by(access_token: params[:access_token])
+    if user
+      render json: {is_success: true}, status: :ok
+    else
+      render json: {is_success: false}
+    end
+  end
+
   private
 
   def user_params

@@ -29,6 +29,7 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
+      post '/check' => 'sessions#check'
       post '/login' => 'sessions#login'
       delete '/logout' => 'sessions#logout'
       post '/register' => 'registrations#create'
