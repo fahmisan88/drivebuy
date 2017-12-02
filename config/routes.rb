@@ -31,19 +31,20 @@ Rails.application.routes.draw do
     namespace :v1 do
       post '/check' => 'sessions#check'
       post '/login' => 'sessions#login'
-      delete '/logout' => 'sessions#logout'
+      post '/logout' => 'sessions#logout'
       post '/register' => 'registrations#create'
       post '/update_profile' => 'customers#update'
       post '/update_location' => 'customers#update_location'
+      post '/fetch_info' => 'customers#fetch_info'
       post '/customer_orders' => 'orders#list_customer_orders'
       post '/current_order' => 'orders#current_order'
       post '/completed_orders' => 'orders#completed_orders'
       post '/current_status' => 'orders#current_status'
+      post '/menu' => 'restaurants#menu'
       resources :restaurants, only: [:index, :show] do
         member do
           post :open
           post :close
-          post :menu
         end
       end
       resources :orders, only: :create do

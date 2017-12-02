@@ -30,6 +30,15 @@ class Api::V1::CustomersController < Api::V1::BaseController
     end
   end
 
+  def fetch_info
+    customer = current_user.customer
+    if customer
+      render json: customer, status: :ok
+    else
+      render json: {error: "No user exist", is_success: false}
+    end
+  end
+
   private
 
   def customer_params
